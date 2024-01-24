@@ -4,6 +4,7 @@
 
 ## Group Members
 * Manoj Rontija: 1145127
+* Raj Kumar Gurung: 1161284
 
 ## App Name
 NewsPortal
