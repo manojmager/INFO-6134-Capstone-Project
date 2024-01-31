@@ -7,40 +7,40 @@
 * Raj Kumar Gurung: 1161284
 * Mansoon Singh Thakuri: 1161286
 
-## App Name
-NewsPortal
+## App Overview
+App Name: NewsPortal
 
-## App Description
+Description:
 NewsPortal is a mobile application designed to provide users with an interactive 
 and engaging platform to explore and interact with various news articles. 
 The app allows users to stay informed about different news categories and encourages interaction 
-through features such as likes and more.
+through features such as personalized preferences, bookmark and more.
+
+## API Integration
+We will be using the NewsAPI (https://newsdata.io/) for fetching news data from multiple sources. The API provides access to real-time and historical news data.
 
 ## Features
-** User Authentication: **
-* Secure user authentication to ensure personalized experiences.
 
-** Profile Management: **
-* Update and delete profile.
-* Set app preference, such as push notification settings.
-
-** News Categories: **
+**News Categories:**
 * Explore news articles categorized by topics such as Technology, Sports, Entertainment, and more.
+* Personalize your news category preferences for a tailored news feed.
+* Get a quick weather view to stay updated on the current conditions.
 
-** Article Details: **
-* View detailed information about each news article, including images, author details, and publication date.
+**Article Details:**
+* Dive deep into detailed information about each news article.
 
-** Search Functionality: **
+**Search Functionality:**
 * Search for specific articles or topics to quickly find relevant information.
-* View Search history.
+* Keep track of your search history for convenience.
 
-** User Interaction **
-* Like articles for appreciation.
+**User Interaction:**
 * Bookmark favorite articles for quick access and personalized content curation.
-* Reload page on shake.
+* Shake to reload page for a seamless user experience.
+* Receive push notifications to stay alerted about breaking news.
 
-** Offline Reading **
+**Offline Reading:**
 * Save articles for offline reading, allowing users to access their favorite content even without an internet connection.
 
-** Dark Mode **
+**Additional features:**
 * Toggle between light and dark mode for a comfortable reading experience in any lighting condition.
+* Share articles through social media platforms like Facebook, Twitter, LinkedIn, etc.
