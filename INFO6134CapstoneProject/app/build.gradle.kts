@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.info_6134capstoneproject"
-    compileSdk = 33
+    namespace = "com.newsportal.info_6134capstoneproject"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.info_6134capstoneproject"
+        applicationId = "com.newsportal.info_6134capstoneproject"
         minSdk = 27
         targetSdk = 33
         versionCode = 1
@@ -33,6 +33,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    viewBinding {
+        enable = true
+    }
 }
 
 dependencies {
@@ -44,4 +47,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+//  project dependencies
+    implementation ("com.google.android.material:material:1.12.0-alpha03")
 }

@@ -1,4 +1,4 @@
-package com.example.info_6134capstoneproject
+package com.newsportal.info_6134capstoneproject
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

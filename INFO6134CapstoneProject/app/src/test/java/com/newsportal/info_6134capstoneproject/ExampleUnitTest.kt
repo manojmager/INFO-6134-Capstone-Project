@@ -1,4 +1,4 @@
-package com.example.info_6134capstoneproject
+package com.newsportal.info_6134capstoneproject
 
 import org.junit.Test
 
