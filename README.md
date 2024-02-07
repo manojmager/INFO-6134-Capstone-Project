@@ -17,7 +17,7 @@ The app allows users to stay informed about different news categories and encour
 through features such as personalized preferences, bookmark and more.
 
 ## API Integration
-We will be using the NewsAPI (https://newsdata.io/) for fetching news data from multiple sources. The API provides access to real-time and historical news data.
+We will be using the NewsAPI (https://newscatcherapi.com/) for fetching news data from multiple sources. The API provides access to real-time and historical news data.
 
 ## Features
 

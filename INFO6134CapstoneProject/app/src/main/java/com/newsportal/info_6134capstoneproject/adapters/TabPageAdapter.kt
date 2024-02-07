@@ -1,9 +1,8 @@
-package com.newsportal.info_6134capstoneproject.Adapter
+package com.newsportal.info_6134capstoneproject.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.newsportal.info_6134capstoneproject.ui.fragments.HomeFragment
 import com.newsportal.info_6134capstoneproject.ui.fragments.TabContentFragment
 import org.json.JSONArray
 

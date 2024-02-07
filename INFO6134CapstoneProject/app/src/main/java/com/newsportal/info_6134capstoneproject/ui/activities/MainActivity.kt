@@ -12,6 +12,18 @@ import com.newsportal.info_6134capstoneproject.ui.fragments.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
+    private val dummyJson = """
+            {
+              "tabs": [
+                {"id": 1, "title": "All"},
+                {"id": 2, "title": "World"},
+                {"id": 3, "title": "Sports"},
+                {"id": 4, "title": "Politics"},
+                {"id": 5, "title": "Game"}
+              ]
+            }
+        """
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,25 +48,12 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        val dummyJson = """
-            {
-              "tabs": [
-                {"id": 1, "title": "All"},
-                {"id": 2, "title": "World"},
-                {"id": 3, "title": "Sports"},
-                {"id": 3, "title": "Politics"},
-                {"id": 3, "title": "Game"}
-              ]
-            }
-        """
-
         val bundle = Bundle().apply {
             putString("jsonData", dummyJson)
         }
 
         val fragment = HomeFragment.newInstance("")
         fragment.arguments = bundle
-
         supportFragmentManager.beginTransaction()
             .replace(R.id.flFragment, fragment)
             .commit()
@@ -65,4 +64,24 @@ class MainActivity : AppCompatActivity() {
             commit()
         }
 
+    override fun onStart() {
+        super.onStart()
+    }
+    override fun onResume() {
+        super.onResume()
+
+
+    }
+    override fun onPause() {
+        super.onPause()
+    }
+    override fun onStop() {
+        super.onStop()
+    }
+    override fun onRestart() {
+        super.onRestart()
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+    }
 }

@@ -1,13 +1,15 @@
 package com.newsportal.info_6134capstoneproject.ui.fragments
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import com.newsportal.info_6134capstoneproject.Adapter.TabPageAdapter
+import com.newsportal.info_6134capstoneproject.adapters.TabPageAdapter
 import com.newsportal.info_6134capstoneproject.R
 import org.json.JSONObject
 class HomeFragment : Fragment() {
@@ -27,20 +29,11 @@ class HomeFragment : Fragment() {
         // Access the jsonData from arguments
         jsonData = arguments?.getString("jsonData")
 
-        // Parse the JSON data and set up tabs
-        setupTabs(jsonData)
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        // Access the jsonData from arguments
-        jsonData = arguments?.getString("jsonData")
+        Log.d(TAG, "HomeFragment onViewCreated: + $jsonData")
 
         // Parse the JSON data and set up tabs
         setupTabs(jsonData)
     }
-
 
     private fun setupTabs(jsonData: String?) {
         try {
