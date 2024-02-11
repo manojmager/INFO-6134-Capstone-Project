@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -39,15 +41,28 @@ android {
 }
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.9")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
 //  project dependencies
     implementation ("com.google.android.material:material:1.12.0-alpha03")
+
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.3") // For HttpLoggingInterceptor
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0") // For GsonConverterFactory
+    implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
+
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.4.0")
+    implementation ("androidx.lifecycle:lifecycle-common-java8:2.4.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
+    implementation ("com.squareup.retrofit2:retrofit-mock:2.9.0")
+//    implementation ("com.squareup.retrofit2:adapter-livedata:2.9.0")
+    implementation ("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
 }

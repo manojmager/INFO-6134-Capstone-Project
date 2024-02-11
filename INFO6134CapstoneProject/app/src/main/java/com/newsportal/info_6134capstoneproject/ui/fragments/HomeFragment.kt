@@ -1,21 +1,31 @@
-package com.newsportal.info_6134capstoneproject.ui.fragments
-
 import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import com.newsportal.info_6134capstoneproject.adapters.TabPageAdapter
 import com.newsportal.info_6134capstoneproject.R
-import org.json.JSONObject
+import com.newsportal.info_6134capstoneproject.adapters.TabPageAdapter
+import com.newsportal.info_6134capstoneproject.api.ApiClient
+import com.newsportal.info_6134capstoneproject.api.ApiInterface
+import com.newsportal.info_6134capstoneproject.pref.NewsCategoryPrefs
+import com.newsportal.info_6134capstoneproject.response.ArticlesResponse
+import com.newsportal.info_6134capstoneproject.response.SourceResponse
+import io.reactivex.Observer
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 class HomeFragment : Fragment() {
 
-    private var jsonData: String? = null
+    private lateinit var newsCategoryPrefs: NewsCategoryPrefs
+    private lateinit var tabLayout: TabLayout
+    private lateinit var viewPager: ViewPager
 
+    private lateinit var apiInterface: ApiInterface
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,62 +36,62 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Access the jsonData from arguments
-        jsonData = arguments?.getString("jsonData")
+        initVars(view)
+        setupTabs()
 
-        Log.d(TAG, "HomeFragment onViewCreated: + $jsonData")
+//        apiInterface = ApiClient.getClient().create(ApiInterface::class.java)
+//        val call = apiInterface.getArticles(
+//            topic = "business",
+//            sources = listOf("nytimes.com", "theguardian.com"),
+//            apiKey = "z_LylxinAVC3Q1-Qu43kgeCKlT-jWaf9uKPKLKwy91o"
+//        )
+//
+//        call.enqueue(object : Callback<ArticlesResponse> {
+//            override fun onResponse(call: Call<ArticlesResponse>, response: Response<ArticlesResponse>) {
+//                if (response.isSuccessful) {
+//                    val articlesResponse = response.body()
+//                    // Log the response body
+//                    Log.d(TAG, "Response body: ${response.body()}")
+//                    articlesResponse?.let {
+//                        // Process articlesResponse.articles list
+//                        Log.d(TAG, "getResult: $it")
+//                    }
+//                } else {
+//                    // Handle error response
+//                    Log.e(TAG, "Failed to fetch articles: ${response.errorBody()?.string()}")
+//                }
+//            }
+//
+//
+//            override fun onFailure(call: Call<ArticlesResponse>, t: Throwable) {
+//                // Handle network failures
+//                Log.e(TAG, "Error fetching latest headlines: ${t.message}")
+//            }
+//        })
+    }
+    private fun initVars(view: View) {
+        newsCategoryPrefs = NewsCategoryPrefs(requireContext())
 
-        // Parse the JSON data and set up tabs
-        setupTabs(jsonData)
+        tabLayout = view.findViewById(R.id.tabLayout)
+        viewPager = view.findViewById(R.id.viewPager)
     }
 
-    private fun setupTabs(jsonData: String?) {
-        try {
-            val jsonObject = JSONObject(jsonData)
-            val tabsArray = jsonObject.getJSONArray("tabs")
+    private fun setupTabs() {
+        val categoryList = newsCategoryPrefs.getCategoryList()
 
-            val tabLayout = view?.findViewById<TabLayout>(R.id.tabLayout)
-
-            for (i in 0 until tabsArray.length()) {
-                val tabObject = tabsArray.getJSONObject(i)
-                val title = tabObject.getString("title")
-
-                val tab = tabLayout?.newTab()
-                tab?.text = title
-                tabLayout?.addTab(tab!!)
-            }
-
-            // Set up ViewPager with the TabLayout
-            val viewPager = view?.findViewById<ViewPager>(R.id.viewPager)
-            val adapter = TabPageAdapter(childFragmentManager, tabsArray)
-            viewPager?.adapter = adapter
-
-            // Connect the TabLayout and ViewPager
-            viewPager?.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
-            tabLayout?.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    tab?.let { viewPager?.currentItem = it.position }
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {}
-            })
-
-        } catch (e: Exception) {
-            e.printStackTrace()
+        if (!categoryList.isNullOrEmpty()) {
+            val adapter = TabPageAdapter(childFragmentManager, categoryList)
+            viewPager.adapter = adapter
+            tabLayout.setupWithViewPager(viewPager)
+        } else {
+            // Handle case when category list is empty or null
+            Log.e("HomeFragment", "Category list is empty or null")
         }
     }
 
     companion object {
-        fun newInstance(title: String): HomeFragment {
-            val fragment = HomeFragment()
-            // You can pass any arguments to the fragment here if needed
-            val args = Bundle().apply {
-                putString("title", title)
-            }
-            fragment.arguments = args
-            return fragment
+        fun newInstance(): HomeFragment {
+            return HomeFragment()
         }
     }
 }

@@ -1,36 +1,32 @@
 package com.newsportal.info_6134capstoneproject.ui.activities
 
+import HomeFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.newsportal.info_6134capstoneproject.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.newsportal.info_6134capstoneproject.databinding.ActivityMainBinding
 import com.newsportal.info_6134capstoneproject.ui.fragments.BookmarkFragment
-import com.newsportal.info_6134capstoneproject.ui.fragments.HomeFragment
 import com.newsportal.info_6134capstoneproject.ui.fragments.SearchFragment
 import com.newsportal.info_6134capstoneproject.ui.fragments.SettingsFragment
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     private lateinit var bottomNavigationView: BottomNavigationView
-    private val dummyJson = """
-            {
-              "tabs": [
-                {"id": 1, "title": "All"},
-                {"id": 2, "title": "World"},
-                {"id": 3, "title": "Sports"},
-                {"id": 4, "title": "Politics"},
-                {"id": 5, "title": "Game"}
-              ]
-            }
-        """
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        // Initialize BottomNavigationView
+        initVars()
+        initBottomNavigation()
+    }
+    private fun initVars() {
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
-
+    }
+    private fun initBottomNavigation() {
         val homeFragment= HomeFragment()
         val bookmarkFragment= BookmarkFragment()
         val searchFragment= SearchFragment()
@@ -47,16 +43,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-        val bundle = Bundle().apply {
-            putString("jsonData", dummyJson)
-        }
-
-        val fragment = HomeFragment.newInstance("")
-        fragment.arguments = bundle
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.flFragment, fragment)
-            .commit()
     }
     private fun setCurrentFragment(fragment: Fragment)=
         supportFragmentManager.beginTransaction().apply {
@@ -69,8 +55,6 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onResume() {
         super.onResume()
-
-
     }
     override fun onPause() {
         super.onPause()
