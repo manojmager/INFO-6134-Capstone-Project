@@ -9,14 +9,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.newsportal.info_6134capstoneproject.R
+import com.newsportal.info_6134capstoneproject.adapters.TabContentFragmentAdapter
+import com.newsportal.info_6134capstoneproject.di.Injection
+import com.newsportal.info_6134capstoneproject.model.Article
+import com.newsportal.info_6134capstoneproject.model.Source
 
 class TabContentFragment : Fragment() {
-    private var title: String? = null
-    private lateinit var textView: TextView
 
-    private lateinit var viewModel: TabContentViewModel
+    private val viewModel by viewModels<TabContentViewModel> {
+        Injection.provideViewModelFactory()
+    }
+
+    private lateinit var adapter: TabContentFragmentAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var layoutError: View
+    private lateinit var textViewError: TextView
+    private lateinit var layoutEmpty: View
+    private lateinit var progressBar: View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,35 +43,56 @@ class TabContentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initVars(view)
-
-        viewModel = ViewModelProvider(this).get(TabContentViewModel::class.java)
-
-        // Call the method to get news sources
-        viewModel.fetchSources("business", "en", "US", "z_LylxinAVC3Q1-Qu43kgeCKlT-jWaf9uKPKLKwy91o")
-        // Call the method to get latest headlines
-        viewModel.fetchLatestHeadlines("1", "relevancy", "z_LylxinAVC3Q1-Qu43kgeCKlT-jWaf9uKPKLKwy91o")
-
-        // Observe the LiveData for the response
-        viewModel.sources.observe(viewLifecycleOwner) { sourceResponse ->
-            // Handle the response here
-            if (sourceResponse != null) {
-                // Process sourceResponse.sources list
-                Log.d(TAG, "Sources: ${sourceResponse.sources}")
-            }
-        }
-
+        setupViewModel()
+        setupUI()
     }
 
-    private fun initVars(view: View) {
-        // Access the title from arguments
-        title = arguments?.getString("title")
+    private fun setupUI() {
+        recyclerView = view?.findViewById(R.id.rvContentFragment) as RecyclerView
+        layoutError = view?.findViewById(R.id.layoutError) as View
+        layoutEmpty = view?.findViewById(R.id.layoutEmpty) as View
+        progressBar = view?.findViewById(R.id.progressBar) as View
+        textViewError = view?.findViewById(R.id.textViewError) as TextView
 
-        // Customize the fragment content based on the title or other data
-        // For example, set text to a TextView
-//        val textView = view.findViewById<TextView>(R.id.textView)
-//        textView.text = title
+        adapter = TabContentFragmentAdapter(viewModel.articles.value ?: emptyList())
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = adapter
+    }
 
+    private fun setupViewModel() {
+        viewModel.articles.observe(viewLifecycleOwner, renderArticles)
+        viewModel.isViewLoading.observe(viewLifecycleOwner, isViewLoadingObserver)
+        viewModel.onMessageError.observe(viewLifecycleOwner, onMessageErrorObserver)
+        viewModel.isEmptyList.observe(viewLifecycleOwner, emptyListObserver)
+    }
+
+    private val renderArticles = Observer<List<Article>> { articles ->
+        Log.d(TAG, "Sources updated: $articles")
+        layoutError.visibility = View.GONE
+        layoutEmpty.visibility = View.GONE
+        adapter.update(articles)
+    }
+
+
+    private val isViewLoadingObserver = Observer<Boolean> { isLoading ->
+        Log.v(TAG, "isViewLoading $isLoading")
+        val visibility = if (isLoading) View.VISIBLE else View.GONE
+        progressBar.visibility = visibility
+    }
+
+    private val onMessageErrorObserver = Observer<String> { error ->
+        error?.let {
+            Log.v(TAG, "onMessageError $error")
+            layoutError.visibility = View.VISIBLE
+            layoutEmpty.visibility = View.GONE
+            textViewError.text = "Error $it"
+        }
+    }
+
+    private val emptyListObserver = Observer<Boolean> { isEmpty ->
+        Log.v(TAG, "emptyListObserver $isEmpty")
+        layoutEmpty.visibility = View.VISIBLE
+        layoutError.visibility = View.GONE
     }
 
     companion object {
@@ -68,5 +104,15 @@ class TabContentFragment : Fragment() {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadArticles()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Injection.destroy()
     }
 }

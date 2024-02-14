@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
@@ -9,9 +9,9 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="16dp"
-        app:cardCornerRadius="12dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginHorizontal="2dp"
+        app:cardCornerRadius="1dp"
         app:cardElevation="4dp">
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                         android:id="@+id/cardShare"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/settings_icon"
+                        android:src="@drawable/share_icon"
                         android:layout_marginLeft="16dp"/>
                 </LinearLayout>
             </LinearLayout>
