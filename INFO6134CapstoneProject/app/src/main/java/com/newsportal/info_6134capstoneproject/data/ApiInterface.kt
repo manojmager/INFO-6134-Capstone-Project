@@ -1,4 +1,4 @@
-package com.newsportal.info_6134capstoneproject.api
+package com.newsportal.info_6134capstoneproject.data
 import com.newsportal.info_6134capstoneproject.response.ArticlesResponse
 import com.newsportal.info_6134capstoneproject.response.SourceResponse
 import retrofit2.Call

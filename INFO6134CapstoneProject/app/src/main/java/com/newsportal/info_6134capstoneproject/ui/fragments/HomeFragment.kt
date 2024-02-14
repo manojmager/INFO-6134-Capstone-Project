@@ -1,4 +1,3 @@
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,15 +8,8 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.newsportal.info_6134capstoneproject.R
 import com.newsportal.info_6134capstoneproject.adapters.TabPageAdapter
-import com.newsportal.info_6134capstoneproject.api.ApiClient
-import com.newsportal.info_6134capstoneproject.api.ApiInterface
+import com.newsportal.info_6134capstoneproject.data.ApiInterface
 import com.newsportal.info_6134capstoneproject.pref.NewsCategoryPrefs
-import com.newsportal.info_6134capstoneproject.response.ArticlesResponse
-import com.newsportal.info_6134capstoneproject.response.SourceResponse
-import io.reactivex.Observer
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class HomeFragment : Fragment() {
 

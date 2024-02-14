@@ -1,5 +1,3 @@
-package com.newsportal.info_6134capstoneproject.pref
-
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
