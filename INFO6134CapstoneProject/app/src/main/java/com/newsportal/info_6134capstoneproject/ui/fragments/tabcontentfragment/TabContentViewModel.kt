@@ -1,63 +1,49 @@
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.newsportal.info_6134capstoneproject.api.ApiClient
-import com.newsportal.info_6134capstoneproject.api.ApiInterface
+import com.newsportal.info_6134capstoneproject.data.ApiClient
+import com.newsportal.info_6134capstoneproject.data.ApiInterface
+import com.newsportal.info_6134capstoneproject.data.OperationCallback
+import com.newsportal.info_6134capstoneproject.model.Article
+import com.newsportal.info_6134capstoneproject.repository.Repository
 import com.newsportal.info_6134capstoneproject.response.SourceResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class TabContentViewModel(application: Application) : AndroidViewModel(application) {
-    private val apiInterface: ApiInterface = ApiClient.getClient().create(ApiInterface::class.java)
+class TabContentViewModel(private val repository: Repository) : ViewModel() {
 
-    val sources: MutableLiveData<SourceResponse> by lazy {
-        MutableLiveData<SourceResponse>()
-    }
+    private val _articles = MutableLiveData<List<Article>>()
+    val articles: MutableLiveData<List<Article>> = _articles
 
-    fun fetchSources(topic: String?, language: String?, countries: String?, apiKey: String) {
-        viewModelScope.launch {
-            try {
-                val response = withContext(Dispatchers.IO) {
-                    apiInterface.getSources(topic, language, countries, apiKey).execute()
-                }
-                if (response.isSuccessful) {
-                    sources.postValue(response.body())
-                } else {
-                    // Handle error
-                }
-            } catch (e: Exception) {
-                // Handle exception
+    private val _isViewLoading = MutableLiveData<Boolean>()
+    val isViewLoading: LiveData<Boolean> = _isViewLoading
+
+    private val _onMessageError = MutableLiveData<String>()
+    val onMessageError: LiveData<String> = _onMessageError
+
+    private val _isEmptyList = MutableLiveData<Boolean>()
+    val isEmptyList: LiveData<Boolean> = _isEmptyList
+
+    fun loadArticles() {
+        _isViewLoading.value = true
+        repository.fetchArticles(object : OperationCallback<Article> {
+            override fun onError(error: String?) {
+                _isViewLoading.value = false
+                _onMessageError.value = error
             }
-        }
-    }
 
-
-    fun fetchLatestHeadlines(source: String?, sortBy: String?, apiKey: String) {
-        viewModelScope.launch {
-            try {
-                val response = withContext(Dispatchers.IO) {
-                    if (source != null) {
-                        apiInterface.getArticles(source, sortBy, apiKey).execute()
-                    } else {
-                        null // Return null if source is null
-                    }
-                }
-                if (response != null && response.isSuccessful) {
-                    // Handle successful response
-
+            override fun onSuccess(data: List<Article>?) {
+                _isViewLoading.value = false
+                if (data.isNullOrEmpty()) {
+                    _isEmptyList.value = true
                 } else {
-                    // Handle error
+                    _articles.value = data
                 }
-            } catch (e: Exception) {
-                // Handle exception
             }
-        }
+        })
     }
-
-
 }
