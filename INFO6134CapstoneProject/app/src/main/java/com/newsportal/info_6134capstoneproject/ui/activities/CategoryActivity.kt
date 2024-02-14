@@ -1,12 +1,10 @@
 package com.newsportal.info_6134capstoneproject.ui.activities
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.newsportal.info_6134capstoneproject.R
 import com.newsportal.info_6134capstoneproject.adapters.CategoryAdapter
@@ -25,11 +23,10 @@ class CategoryActivity : AppCompatActivity() {
 
         // Initialize SharedPreferences
         newsCategoryPrefs = NewsCategoryPrefs(this)
-//        newsCategoryPrefs.clearCategoryList()
 
         // Initialize RecyclerView
-        recyclerView = findViewById(R.id.recyclerViewCategories)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView = findViewById(R.id.rvCategories)
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
 
         // Sample Arraylist of categories
         val categories = listOf(
@@ -52,7 +49,7 @@ class CategoryActivity : AppCompatActivity() {
         )
 
         // Set up RecyclerView adapter
-        categoryAdapter = CategoryAdapter(categories) { category, isChecked ->
+        categoryAdapter = CategoryAdapter(this, categories) { category, isChecked ->
             // Update category selection status in SharedPreferences
             updateCategorySelection(category, isChecked)
         }
@@ -65,8 +62,6 @@ class CategoryActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
-
-
     }
 
     private fun updateCategorySelection(category: Category, isChecked: Boolean) {
