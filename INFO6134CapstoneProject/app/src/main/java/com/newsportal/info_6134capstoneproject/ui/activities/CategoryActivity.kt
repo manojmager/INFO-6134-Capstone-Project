@@ -25,6 +25,7 @@ class CategoryActivity : AppCompatActivity() {
 
         // Initialize SharedPreferences
         newsCategoryPrefs = NewsCategoryPrefs(this)
+//        newsCategoryPrefs.clearCategoryList()
 
         // Initialize RecyclerView
         recyclerView = findViewById(R.id.recyclerViewCategories)

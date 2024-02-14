@@ -65,4 +65,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit-mock:2.9.0")
 //    implementation ("com.squareup.retrofit2:adapter-livedata:2.9.0")
     implementation ("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
+
+    //weather
+    implementation("com.google.android.gms:play-services-location:21.1.0")
 }
