@@ -5,8 +5,8 @@ import com.newsportal.info_6134capstoneproject.data.OperationCallback
 import com.newsportal.info_6134capstoneproject.model.Article
 
 class Repository(private val dataSource: DataSource) {
-    fun fetchArticles(callback: OperationCallback<Article>) {
-        dataSource.retrieveArticles(callback)
+    fun fetchArticles(title: String, callback: OperationCallback<Article>) {
+        dataSource.retrieveArticles(title, callback)
     }
     fun cancel() {
         dataSource.cancel()

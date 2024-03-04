@@ -1,4 +1,4 @@
-package com.newsportal.info_6134capstoneproject
+package com.newsportal.info_6134capstoneproject.data
 
 import android.os.AsyncTask
 import org.json.JSONObject

@@ -1,3 +1,4 @@
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,13 +12,12 @@ import com.newsportal.info_6134capstoneproject.adapters.TabPageAdapter
 import com.newsportal.info_6134capstoneproject.data.ApiInterface
 import com.newsportal.info_6134capstoneproject.pref.NewsCategoryPrefs
 
+
 class HomeFragment : Fragment() {
 
     private lateinit var newsCategoryPrefs: NewsCategoryPrefs
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager
-
-    private lateinit var apiInterface: ApiInterface
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,37 +29,10 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initVars(view)
-        setupTabs()
-
-//        apiInterface = ApiClient.getClient().create(ApiInterface::class.java)
-//        val call = apiInterface.getArticles(
-//            topic = "business",
-//            sources = listOf("nytimes.com", "theguardian.com"),
-//            apiKey = "z_LylxinAVC3Q1-Qu43kgeCKlT-jWaf9uKPKLKwy91o"
-//        )
-//
-//        call.enqueue(object : Callback<ArticlesResponse> {
-//            override fun onResponse(call: Call<ArticlesResponse>, response: Response<ArticlesResponse>) {
-//                if (response.isSuccessful) {
-//                    val articlesResponse = response.body()
-//                    // Log the response body
-//                    Log.d(TAG, "Response body: ${response.body()}")
-//                    articlesResponse?.let {
-//                        // Process articlesResponse.articles list
-//                        Log.d(TAG, "getResult: $it")
-//                    }
-//                } else {
-//                    // Handle error response
-//                    Log.e(TAG, "Failed to fetch articles: ${response.errorBody()?.string()}")
-//                }
-//            }
-//
-//
-//            override fun onFailure(call: Call<ArticlesResponse>, t: Throwable) {
-//                // Handle network failures
-//                Log.e(TAG, "Error fetching latest headlines: ${t.message}")
-//            }
-//        })
+        if (savedInstanceState == null) {
+            // Only setup tabs if it's the first creation of the fragment
+            setupTabs()
+        }
     }
     private fun initVars(view: View) {
         newsCategoryPrefs = NewsCategoryPrefs(requireContext())
@@ -70,6 +43,7 @@ class HomeFragment : Fragment() {
 
     private fun setupTabs() {
         val categoryList = newsCategoryPrefs.getCategoryList()
+        Log.d(ContentValues.TAG, "setupTabs: $categoryList")
 
         if (!categoryList.isNullOrEmpty()) {
             val adapter = TabPageAdapter(childFragmentManager, categoryList)
@@ -78,12 +52,6 @@ class HomeFragment : Fragment() {
         } else {
             // Handle case when category list is empty or null
             Log.e("HomeFragment", "Category list is empty or null")
-        }
-    }
-
-    companion object {
-        fun newInstance(): HomeFragment {
-            return HomeFragment()
         }
     }
 }

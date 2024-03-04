@@ -2,6 +2,8 @@ package com.newsportal.info_6134capstoneproject.ui.fragments.tabcontentfragment
 
 import TabContentViewModel
 import android.content.ContentValues.TAG
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -32,6 +34,8 @@ class TabContentFragment : Fragment() {
     private lateinit var layoutEmpty: View
     private lateinit var progressBar: View
 
+    private lateinit var title: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,6 +46,7 @@ class TabContentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        title = arguments?.getString("title") ?: "all"
         setupViewModel()
         setupUI()
     }
@@ -53,9 +58,16 @@ class TabContentFragment : Fragment() {
         progressBar = view?.findViewById(R.id.progressBar) as View
         textViewError = view?.findViewById(R.id.textViewError) as TextView
 
-        adapter = TabContentFragmentAdapter(viewModel.articles.value ?: emptyList())
+        adapter = TabContentFragmentAdapter(viewModel.articles.value ?: emptyList()) { url ->
+            openLinkInBuiltInBrowser(url)
+        }
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
+    }
+
+    private fun openLinkInBuiltInBrowser(url: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(browserIntent)
     }
 
     private fun setupViewModel() {
@@ -80,7 +92,7 @@ class TabContentFragment : Fragment() {
     }
 
     private val onMessageErrorObserver = Observer<String> { error ->
-        error?.let {
+        error.let {
             Log.v(TAG, "onMessageError $error")
             layoutError.visibility = View.VISIBLE
             layoutEmpty.visibility = View.GONE
@@ -107,7 +119,7 @@ class TabContentFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.loadArticles()
+        viewModel.loadArticles(title)
     }
 
     override fun onDestroy() {

@@ -5,12 +5,12 @@ import com.newsportal.info_6134capstoneproject.response.LatestHeadlinesResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
 class RemoteDataSource(private val apiClient: ApiClient) : DataSource {
     private var call: Call<LatestHeadlinesResponse>? = null
     private val service = apiClient.build()
-    override fun retrieveArticles(callback: OperationCallback<Article>) {
-        call = service.getLatestHeadlines(topic = "business", countries = "ca", whenParam = "7d" )
+
+    override fun retrieveArticles(title: String, callback: OperationCallback<Article>) {
+        call = service.getLatestHeadlines(topic = title, countries = "ca", whenParam = "7d" )
         call?.enqueue(object : Callback<LatestHeadlinesResponse> {
             override fun onFailure(call: Call<LatestHeadlinesResponse>, t: Throwable) {
                 callback.onError(t.message)
@@ -18,7 +18,7 @@ class RemoteDataSource(private val apiClient: ApiClient) : DataSource {
 
             override fun onResponse(call: Call<LatestHeadlinesResponse>, response: Response<LatestHeadlinesResponse>) {
                 response.body()?.let {
-                    if (response.isSuccessful && it.articles != null) {
+                    if (response.isSuccessful) {
                         // Convert the list of source names to a list of Source objects
                         val sourceName = it.articles.map { sourceName ->
                             Article(title = sourceName.title, author = sourceName.author,
@@ -40,3 +40,4 @@ class RemoteDataSource(private val apiClient: ApiClient) : DataSource {
         }
     }
 }
+

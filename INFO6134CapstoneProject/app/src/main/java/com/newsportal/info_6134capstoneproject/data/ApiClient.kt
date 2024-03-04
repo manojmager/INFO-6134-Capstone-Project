@@ -1,17 +1,10 @@
 package com.newsportal.info_6134capstoneproject.data
-import com.newsportal.info_6134capstoneproject.response.LatestHeadlinesResponse
+
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Query
-
 object ApiClient {
     private var apiInterface: ApiInterface? = null
 
@@ -45,18 +38,5 @@ object ApiClient {
             val request: Request = requestBuilder.build()
             chain.proceed(request)
         }
-    }
-
-    /**
-     * Retrofit service interface defining API endpoints
-     */
-    interface ApiInterface {
-        @GET("latest_headlines")
-        fun getLatestHeadlines(
-            @Query("topic") topic: String,
-            @Query("countries") countries: String,
-            @Query("when") whenParam: String,
-            @Header("x-api-key") apiKey: String = Api.API_KEY
-        ): Call<LatestHeadlinesResponse>
     }
 }
