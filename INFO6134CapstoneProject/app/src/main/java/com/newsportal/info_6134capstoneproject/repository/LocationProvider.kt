@@ -1,4 +1,4 @@
-package com.newsportal.info_6134capstoneproject
+package com.newsportal.info_6134capstoneproject.repository
 
 import com.google.android.gms.location.FusedLocationProviderClient
 

@@ -1,4 +1,4 @@
-package com.newsportal.info_6134capstoneproject.ui.activities
+package com.newsportal.info_6134capstoneproject
 
 import HomeFragment
 import android.Manifest
@@ -13,11 +13,10 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.newsportal.info_6134capstoneproject.R
-import com.newsportal.info_6134capstoneproject.LocationProvider
+import com.newsportal.info_6134capstoneproject.repository.LocationProvider
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.newsportal.info_6134capstoneproject.FetchWeather
-import com.newsportal.info_6134capstoneproject.WeatherFetchListener
+import com.newsportal.info_6134capstoneproject.data.FetchWeather
+import com.newsportal.info_6134capstoneproject.data.WeatherFetchListener
 import com.newsportal.info_6134capstoneproject.databinding.ActivityMainBinding
 import com.newsportal.info_6134capstoneproject.ui.fragments.BookmarkFragment
 import com.newsportal.info_6134capstoneproject.ui.fragments.SearchFragment
@@ -102,7 +101,7 @@ class MainActivity : AppCompatActivity(), WeatherFetchListener {
     private fun initializeWeather() {
         weatherFetcher = FetchWeather(this)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        locationProvider = com.newsportal.info_6134capstoneproject.LocationProvider(fusedLocationClient)
+        locationProvider = LocationProvider(fusedLocationClient)
 
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -120,7 +119,7 @@ class MainActivity : AppCompatActivity(), WeatherFetchListener {
     }
 
     private fun fetchUserLocation() {
-        locationProvider.fetchUserLocation(object : com.newsportal.info_6134capstoneproject.LocationProvider.LocationFetchListener {
+        locationProvider.fetchUserLocation(object : LocationProvider.LocationFetchListener {
             override fun onLocationFetched(latitude: Double, longitude: Double) {
                 weatherFetcher.fetchWeatherByCoordinates(latitude, longitude)
             }
