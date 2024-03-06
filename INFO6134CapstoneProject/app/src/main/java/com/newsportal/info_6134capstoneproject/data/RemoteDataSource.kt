@@ -23,7 +23,7 @@ class RemoteDataSource(private val apiClient: ApiClient) : DataSource {
                         val sourceName = it.articles.map { sourceName ->
                             Article(title = sourceName.title, author = sourceName.author,
                                 published_date = sourceName.published_date, link = sourceName.link,
-                                excerpt = sourceName.excerpt, topic = sourceName.topic, media = sourceName.media)
+                                excerpt = sourceName.excerpt, topic = sourceName.topic, media = sourceName.media, summary = sourceName.summary)
                         }
                         callback.onSuccess(sourceName)
                     } else {

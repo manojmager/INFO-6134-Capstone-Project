@@ -10,7 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.newsportal.info_6134capstoneproject.R
 import com.newsportal.info_6134capstoneproject.model.Article
+import com.newsportal.info_6134capstoneproject.ui.activities.ArticleDetailsActivity
 import com.newsportal.info_6134capstoneproject.ui.activities.WebViewActivity
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
 class TabContentFragmentAdapter(
     private var articles: List<Article>,
@@ -40,7 +44,7 @@ class TabContentFragmentAdapter(
         private val textViewcardAuthor: TextView = view.findViewById(R.id.cardAuthor)
         private val textViewcardHeadline: TextView = view.findViewById(R.id.cardHeadline)
         private val imageView: ImageView = view.findViewById(R.id.cardImage)
-        private val bookmark: ImageView = view.findViewById(R.id.cardBookmark)
+
         private val shareContent: ImageView = view.findViewById(R.id.cardShare)
 
         fun bind(article: Article) {
@@ -50,34 +54,24 @@ class TabContentFragmentAdapter(
         }
 
         init {
-            textViewcardAuthor.setOnClickListener {
+            val clickListener = View.OnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    val intent = Intent(itemView.context, WebViewActivity::class.java).apply {
+                    val intent = Intent(itemView.context, ArticleDetailsActivity::class.java).apply {
                         putExtra("url", articles[position].link)
+                        putExtra("media", articles[position].media)
+                        putExtra("title", articles[position].title)
+                        putExtra("summary", articles[position].summary)
                     }
                     itemView.context.startActivity(intent)
                 }
             }
-            textViewcardHeadline.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val intent = Intent(itemView.context, WebViewActivity::class.java).apply {
-                        putExtra("url", articles[position].link)
-                    }
-                    itemView.context.startActivity(intent)
-                }
-            }
-            imageView.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val intent = Intent(itemView.context, WebViewActivity::class.java).apply {
-                        putExtra("url", articles[position].link)
-                    }
-                    itemView.context.startActivity(intent)
-                }
-            }
-            shareContent.setOnClickListener{
+
+            textViewcardAuthor.setOnClickListener(clickListener)
+            textViewcardHeadline.setOnClickListener(clickListener)
+            imageView.setOnClickListener(clickListener)
+
+            shareContent.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val article = articles[position]
