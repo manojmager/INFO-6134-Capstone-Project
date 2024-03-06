@@ -44,3 +44,6 @@ We will be using the NewsAPI (https://newscatcherapi.com/) for fetching news dat
 **Additional features:**
 * Toggle between light and dark mode for a comfortable reading experience in any lighting condition.
 * Share articles through social media platforms like Facebook, Twitter, LinkedIn, etc.
+
+## Figma Prototype Demonstrate
+Link: https://www.figma.com/proto/FQ5akv2IqX1KzFzhUB04Mm/Capstone-Project?page-id=0%3A1&type=design&node-id=7-12&viewport=441%2C480%2C0.41&t=WbWaQ0b4Vb6fLNyG-1&scaling=scale-down&starting-point-node-id=7%3A12&mode=design

@@ -9,6 +9,7 @@ data class Article(
     val link: String?,
     val media: String?,
     val excerpt: String?,
+    val summary: String,
     val topic: String?,
 ): Serializable
 
