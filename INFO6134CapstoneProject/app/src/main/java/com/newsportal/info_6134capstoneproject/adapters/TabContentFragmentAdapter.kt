@@ -40,6 +40,8 @@ class TabContentFragmentAdapter(
         private val textViewcardAuthor: TextView = view.findViewById(R.id.cardAuthor)
         private val textViewcardHeadline: TextView = view.findViewById(R.id.cardHeadline)
         private val imageView: ImageView = view.findViewById(R.id.cardImage)
+        private val bookmark: ImageView = view.findViewById(R.id.cardBookmark)
+        private val shareContent: ImageView = view.findViewById(R.id.cardShare)
 
         fun bind(article: Article) {
             textViewcardAuthor.text = article.author
@@ -48,13 +50,45 @@ class TabContentFragmentAdapter(
         }
 
         init {
-            itemView.setOnClickListener {
+            textViewcardAuthor.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val intent = Intent(itemView.context, WebViewActivity::class.java).apply {
                         putExtra("url", articles[position].link)
                     }
                     itemView.context.startActivity(intent)
+                }
+            }
+            textViewcardHeadline.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val intent = Intent(itemView.context, WebViewActivity::class.java).apply {
+                        putExtra("url", articles[position].link)
+                    }
+                    itemView.context.startActivity(intent)
+                }
+            }
+            imageView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val intent = Intent(itemView.context, WebViewActivity::class.java).apply {
+                        putExtra("url", articles[position].link)
+                    }
+                    itemView.context.startActivity(intent)
+                }
+            }
+            shareContent.setOnClickListener{
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val article = articles[position]
+                    val shareMessage = "${article.excerpt}\nAuthor: ${article.author}\n${article.link}"
+                    val sendIntent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, shareMessage)
+                        type = "text/plain"
+                    }
+                    val shareIntent = Intent.createChooser(sendIntent, null)
+                    itemView.context.startActivity(shareIntent)
                 }
             }
         }
