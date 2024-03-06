@@ -4,15 +4,16 @@
     android:id="@+id/cvNewsCategory"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:padding="8dp"
-    app:cardBackgroundColor="@color/my_app_primary"
-    app:cardCornerRadius="16dp"
+    android:layout_margin="6dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="10dp"
     app:cardElevation="4dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/ivNewsCategory"
@@ -34,17 +35,5 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <CheckBox
-            android:id="@+id/cbNews"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/my_app_accent"
-            android:visibility="visible" />
-
     </RelativeLayout>
-
 </androidx.cardview.widget.CardView>

@@ -40,16 +40,18 @@ class CategoryActivity : AppCompatActivity() {
             Category(id = 9, category = "beauty"),
             Category(id = 10, category = "travel"),
             Category(id = 11, category = "music"),
-            Category(id = 12, category = "food"),
-            Category(id = 13, category = "science"),
-            Category(id = 14, category = "gaming"),
-            Category(id = 15, category = "energy"),
+//            Category(id = 12, category = "food"),
+//            Category(id = 13, category = "science"),
+//            Category(id = 14, category = "gaming"),
+//            Category(id = 15, category = "energy"),
         )
 
         // Set up RecyclerView adapter
-        categoryAdapter = CategoryAdapter(this, categories) { category, isChecked ->
-            // Update category selection status in SharedPreferences
-            updateCategorySelection(category, isChecked)
+        categoryAdapter = CategoryAdapter(this, categories) { category ->
+            // Toggle category selection
+            val isSelected = newsCategoryPrefs.getCategoryList()?.contains(category) == true
+            updateCategorySelection(category, !isSelected)
+            categoryAdapter.notifyDataSetChanged()
         }
         recyclerView.adapter = categoryAdapter
 

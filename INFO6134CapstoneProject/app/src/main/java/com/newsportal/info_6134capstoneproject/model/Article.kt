@@ -1,5 +1,4 @@
 package com.newsportal.info_6134capstoneproject.model
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class Article(
@@ -9,7 +8,7 @@ data class Article(
     val link: String?,
     val media: String?,
     val excerpt: String?,
-    val summary: String,
+    val summary: String?,
     val topic: String?,
 ): Serializable
 

@@ -58,16 +58,9 @@ class TabContentFragment : Fragment() {
         progressBar = view?.findViewById(R.id.progressBar) as View
         textViewError = view?.findViewById(R.id.textViewError) as TextView
 
-        adapter = TabContentFragmentAdapter(viewModel.articles.value ?: emptyList()) { url ->
-            openLinkInBuiltInBrowser(url)
-        }
+        adapter = TabContentFragmentAdapter(viewModel.articles.value ?: emptyList())
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
-    }
-
-    private fun openLinkInBuiltInBrowser(url: String) {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        startActivity(browserIntent)
     }
 
     private fun setupViewModel() {
