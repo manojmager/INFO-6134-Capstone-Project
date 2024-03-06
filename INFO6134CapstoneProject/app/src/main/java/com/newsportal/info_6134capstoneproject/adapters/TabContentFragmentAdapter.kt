@@ -16,11 +16,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
-class TabContentFragmentAdapter(
-    private var articles: List<Article>,
-    private val onItemClick: (String) -> Unit
-) : RecyclerView.Adapter<TabContentFragmentAdapter.MViewHolder>() {
-
+class TabContentFragmentAdapter (
+    private var articles: List<Article>) :
+    RecyclerView.Adapter<TabContentFragmentAdapter.MViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.content_fragment_item, parent, false)

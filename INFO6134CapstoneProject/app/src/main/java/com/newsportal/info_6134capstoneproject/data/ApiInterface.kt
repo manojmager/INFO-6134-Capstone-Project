@@ -16,4 +16,10 @@ interface ApiInterface {
         @Query("when") whenParam: String,
         @Header("x-api-key") apiKey: String = Api.API_KEY
     ): Call<LatestHeadlinesResponse>
+
+    @GET("search")
+    fun getSearchedArticles(
+        @Query("q") query: String,
+        @Header("x-api-key") apiKey: String = Api.API_KEY
+    ): Call<LatestHeadlinesResponse>
 }
