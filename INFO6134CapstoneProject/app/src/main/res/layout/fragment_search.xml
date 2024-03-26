@@ -20,6 +20,7 @@
         android:inputType="text"
         android:imeOptions="actionSearch"
         android:drawableStart="@drawable/searchbar_icon"
+        android:drawablePadding="20dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -32,8 +33,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="5dp"
-        android:padding="10dp"/>
+        android:layout_marginTop="5dp"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

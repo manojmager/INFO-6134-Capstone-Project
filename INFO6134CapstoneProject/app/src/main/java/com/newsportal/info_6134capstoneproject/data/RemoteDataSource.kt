@@ -1,7 +1,5 @@
 package com.newsportal.info_6134capstoneproject.data
 
-import android.content.ContentValues
-import android.util.Log
 import com.newsportal.info_6134capstoneproject.model.Article
 import com.newsportal.info_6134capstoneproject.response.LatestHeadlinesResponse
 import retrofit2.Call
@@ -23,9 +21,15 @@ class RemoteDataSource(private val apiClient: ApiClient) : DataSource {
                     if (response.isSuccessful) {
                         // Convert the list of source names to a list of Source objects
                         val sourceName = it.articles.map { sourceName ->
-                            Article(title = sourceName.title, author = sourceName.author,
-                                published_date = sourceName.published_date, link = sourceName.link,
-                                excerpt = sourceName.excerpt, topic = sourceName.topic, media = sourceName.media, summary = sourceName.summary)
+                            Article(title = sourceName.title,
+                                author = sourceName.author,
+                                published_date = sourceName.published_date,
+                                link = sourceName.link,
+                                excerpt = sourceName.excerpt,
+                                topic = sourceName.topic,
+                                media = sourceName.media,
+                                summary = sourceName.summary,
+                                _id = sourceName._id)
                         }
                         callback.onSuccess(sourceName)
                     } else {
@@ -55,10 +59,9 @@ class RemoteDataSource(private val apiClient: ApiClient) : DataSource {
                                 excerpt = sourceName.excerpt,
                                 topic = sourceName.topic,
                                 media = sourceName.media,
-                                summary = sourceName.summary)
+                                summary = sourceName.summary,
+                                _id = sourceName._id)
                         }
-                        Log.d(ContentValues.TAG, "onResponse: $response")
-
                         callback.onSuccess(sourceName)
                     } else {
                         callback.onError(it.status)

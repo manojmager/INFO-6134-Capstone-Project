@@ -16,24 +16,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.INFO6134CapstoneProject"
         tools:targetApi="31">
-
+        <activity
+            android:name=".test.TestActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activities.ArticleDetailsActivity"
             android:exported="false"
-            android:parentActivityName=".MainActivity"/>
-
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ui.activities.WebViewActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.activities.CategoryActivity"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true" />
-
         <activity
             android:name=".ui.activities.SplashScreenActivity"
             android:exported="true">
@@ -44,4 +42,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

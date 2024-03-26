@@ -18,10 +18,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.newsportal.info_6134capstoneproject.data.FetchWeather
 import com.newsportal.info_6134capstoneproject.data.WeatherFetchListener
 import com.newsportal.info_6134capstoneproject.databinding.ActivityMainBinding
-import com.newsportal.info_6134capstoneproject.ui.fragments.BookmarkFragment
+import com.newsportal.info_6134capstoneproject.ui.fragments.bookmarkfragment.BookmarkFragment
 import com.newsportal.info_6134capstoneproject.ui.fragments.SearchFragment
 import com.newsportal.info_6134capstoneproject.ui.fragments.SettingsFragment
-
 class MainActivity : AppCompatActivity(), WeatherFetchListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var bottomNavigationView: BottomNavigationView
@@ -47,10 +46,10 @@ class MainActivity : AppCompatActivity(), WeatherFetchListener {
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
     }
     private fun initBottomNavigation() {
-        val homeFragment= HomeFragment()
-        val bookmarkFragment= BookmarkFragment()
-        val searchFragment= SearchFragment()
-        val settingsFragment= SettingsFragment()
+        val homeFragment = HomeFragment()
+        val bookmarkFragment = BookmarkFragment()
+        val searchFragment = SearchFragment()
+        val settingsFragment = SettingsFragment()
 
         setCurrentFragment(homeFragment)
 
@@ -165,7 +164,6 @@ class MainActivity : AppCompatActivity(), WeatherFetchListener {
             1114 -> R.drawable.snowy
             else -> R.drawable.clear
         }
-
         weatherConditionImage.setImageResource(weatherConditionImg)
     }
 

@@ -45,6 +45,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Lorem Ipsum lorem ipsum lorem ipsum lorem ipsum"
+                        android:maxLines="2"
                         android:textColor="@color/black"
                         android:textStyle="bold"
                         android:layout_marginBottom="3dp"/>

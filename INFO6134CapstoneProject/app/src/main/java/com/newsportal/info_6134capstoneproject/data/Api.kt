@@ -5,4 +5,3 @@ class Api {
         const val API_KEY = "z_LylxinAVC3Q1-Qu43kgeCKlT-jWaf9uKPKLKwy91o"
     }
 }
-

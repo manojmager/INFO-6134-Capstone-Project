@@ -12,9 +12,7 @@ import com.newsportal.info_6134capstoneproject.adapters.TabPageAdapter
 import com.newsportal.info_6134capstoneproject.data.ApiInterface
 import com.newsportal.info_6134capstoneproject.pref.NewsCategoryPrefs
 
-
 class HomeFragment : Fragment() {
-
     private lateinit var newsCategoryPrefs: NewsCategoryPrefs
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager

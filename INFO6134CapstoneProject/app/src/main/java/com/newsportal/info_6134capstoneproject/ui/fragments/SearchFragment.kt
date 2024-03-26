@@ -20,14 +20,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.newsportal.info_6134capstoneproject.R
 import com.newsportal.info_6134capstoneproject.adapters.TabContentFragmentAdapter
+import com.newsportal.info_6134capstoneproject.db.BookmarkViewModel
 import com.newsportal.info_6134capstoneproject.di.Injection
 import com.newsportal.info_6134capstoneproject.model.Article
-
 class SearchFragment : Fragment() {
 
     private val viewModel by viewModels<TabContentViewModel> {
         Injection.provideViewModelFactory()
     }
+    private val bookmarkViewModel by viewModels<BookmarkViewModel>()
 
     private lateinit var adapter: TabContentFragmentAdapter
     private lateinit var recyclerView: RecyclerView
@@ -87,7 +88,7 @@ class SearchFragment : Fragment() {
             textViewError = view?.findViewById(R.id.textViewError) as TextView
 
             it.layoutManager = LinearLayoutManager(context)
-            adapter = TabContentFragmentAdapter(emptyList())
+            adapter = TabContentFragmentAdapter(emptyList(), bookmarkViewModel)
             it.adapter = adapter
         }
     }

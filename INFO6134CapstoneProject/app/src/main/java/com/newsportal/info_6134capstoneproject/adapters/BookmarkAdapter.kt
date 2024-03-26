@@ -1,7 +1,6 @@
 package com.newsportal.info_6134capstoneproject.adapters
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,27 +14,26 @@ import com.newsportal.info_6134capstoneproject.model.Article
 import com.newsportal.info_6134capstoneproject.model.DBArticle
 import com.newsportal.info_6134capstoneproject.ui.activities.ArticleDetailsActivity
 
-class TabContentFragmentAdapter (
-    private var articles: List<Article>,
-    private val bookmarkViewModel: BookmarkViewModel
-) :
-    RecyclerView.Adapter<TabContentFragmentAdapter.MViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MViewHolder {
+class BookmarkAdapter(private val bookmarkViewModel: BookmarkViewModel) : RecyclerView.Adapter<BookmarkAdapter.MViewHolder>() {
+
+    private var bookmarkList = emptyList<DBArticle>()
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarkAdapter.MViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.content_fragment_item, parent, false)
         return MViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MViewHolder, position: Int) {
-        holder.bind(articles[position])
+        holder.bind(bookmarkList[position])
     }
 
     override fun getItemCount(): Int {
-        return articles.size
+        return bookmarkList.size
     }
 
-    fun update(data: List<Article>) {
-        articles = data
+    fun update(data: List<DBArticle>) {
+        this.bookmarkList = data
         notifyDataSetChanged()
     }
 
@@ -48,10 +46,10 @@ class TabContentFragmentAdapter (
         private val shareContentBtn: ImageView = view.findViewById(R.id.cardShare)
 
 
-        fun bind(article: Article) {
-            textViewCardAuthor.text = article.author
-            textViewCardHeadline.text = article.excerpt
-            Glide.with(imageView.context).load(article.media).into(imageView)
+        fun bind(dbArticle: DBArticle) {
+            textViewCardAuthor.text = dbArticle.author
+            textViewCardHeadline.text = dbArticle.excerpt
+            Glide.with(imageView.context).load(dbArticle.media).into(imageView)
         }
 
         init {
@@ -59,10 +57,10 @@ class TabContentFragmentAdapter (
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val intent = Intent(itemView.context, ArticleDetailsActivity::class.java).apply {
-                        putExtra("url", articles[position].link)
-                        putExtra("media", articles[position].media)
-                        putExtra("title", articles[position].title)
-                        putExtra("summary", articles[position].summary)
+                        putExtra("url", bookmarkList[position].link)
+                        putExtra("media", bookmarkList[position].media)
+                        putExtra("title", bookmarkList[position].title)
+                        putExtra("summary", bookmarkList[position].summary)
                     }
                     itemView.context.startActivity(intent)
                 }
@@ -72,28 +70,19 @@ class TabContentFragmentAdapter (
             textViewCardHeadline.setOnClickListener(clickListener)
             imageView.setOnClickListener(clickListener)
 
+            bookmarkBtn.setImageResource(R.drawable.active_bookmark_icon)
             bookmarkBtn.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    val title = articles[position].title
-                    val author = articles[position].author
-                    val published_date = articles[position].published_date
-                    val link = articles[position].link
-                    val media = articles[position].media
-                    val excerpt = articles[position].excerpt
-                    val summary = articles[position].summary
-                    val topic = articles[position].topic
-
-                    val dbArticle = DBArticle(_id = 0, title, author, published_date,link, media,excerpt, summary, topic)
-                    bookmarkViewModel.addBookmark(dbArticle)
-                    bookmarkBtn.setImageResource(R.drawable.active_bookmark_icon)
+                    val articleToDelete = bookmarkList[position]
+                    bookmarkViewModel.deleteBookmark(articleToDelete)
                 }
             }
 
             shareContentBtn.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    val article = articles[position]
+                    val article = bookmarkList[position]
                     val shareMessage = "${article.excerpt}\nAuthor: ${article.author}\n${article.link}"
                     val sendIntent = Intent().apply {
                         action = Intent.ACTION_SEND
@@ -104,6 +93,8 @@ class TabContentFragmentAdapter (
                     itemView.context.startActivity(shareIntent)
                 }
             }
+
         }
     }
+
 }

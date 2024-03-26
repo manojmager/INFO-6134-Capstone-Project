@@ -2,8 +2,6 @@ package com.newsportal.info_6134capstoneproject.ui.fragments.tabcontentfragment
 
 import TabContentViewModel
 import android.content.ContentValues.TAG
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,14 +16,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.newsportal.info_6134capstoneproject.R
 import com.newsportal.info_6134capstoneproject.adapters.TabContentFragmentAdapter
+import com.newsportal.info_6134capstoneproject.db.BookmarkViewModel
 import com.newsportal.info_6134capstoneproject.di.Injection
 import com.newsportal.info_6134capstoneproject.model.Article
 
+// TODO: implement Threads and Coroutines
+// TODO: check redundent data
 class TabContentFragment : Fragment() {
 
     private val viewModel by viewModels<TabContentViewModel> {
         Injection.provideViewModelFactory()
     }
+    private val bookmarkViewModel by viewModels<BookmarkViewModel>()
 
     private lateinit var adapter: TabContentFragmentAdapter
     private lateinit var recyclerView: RecyclerView
@@ -53,12 +55,14 @@ class TabContentFragment : Fragment() {
 
     private fun setupUI() {
         recyclerView = view?.findViewById(R.id.rvContentFragment) as RecyclerView
+
+        recyclerView = view?.findViewById(R.id.rvContentFragment) as RecyclerView
         layoutError = view?.findViewById(R.id.layoutError) as View
         layoutEmpty = view?.findViewById(R.id.layoutEmpty) as View
         progressBar = view?.findViewById(R.id.progressBar) as View
         textViewError = view?.findViewById(R.id.textViewError) as TextView
 
-        adapter = TabContentFragmentAdapter(viewModel.articles.value ?: emptyList())
+        adapter = TabContentFragmentAdapter(viewModel.articles.value ?: emptyList(), bookmarkViewModel)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
     }
