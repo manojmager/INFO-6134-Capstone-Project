@@ -1,7 +1,6 @@
 package com.newsportal.info_6134capstoneproject.response
 
 import com.newsportal.info_6134capstoneproject.model.Article
-
 data class LatestHeadlinesResponse(
     val status: String,
     val total_hits: Int,
@@ -11,7 +10,6 @@ data class LatestHeadlinesResponse(
     val articles: List<Article>,
     val user_input_article: UserInputArticle
 )
-
 data class UserInputArticle(
     val lang: Any?,
     val not_lang: Any?,

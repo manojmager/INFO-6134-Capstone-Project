@@ -25,7 +25,7 @@ class FetchWeather(private val listener: WeatherFetchListener) {
         AsyncTask<String, Void, JSONObject>() {
 
         override fun doInBackground(vararg params: String?): JSONObject? {
-            val apiKey = "3cd2b470bce9404cb66142254231512"
+            val apiKey = "a513d20c6fb44eaaba420310240803"
             val location = params[0]
             val url = URL("https://api.weatherapi.com/v1/current.json?key=$apiKey&q=$location&aqi=no")
 

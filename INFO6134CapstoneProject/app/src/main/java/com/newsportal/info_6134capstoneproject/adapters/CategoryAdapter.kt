@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.newsportal.info_6134capstoneproject.R
 import com.newsportal.info_6134capstoneproject.model.Category
 import com.newsportal.info_6134capstoneproject.pref.NewsCategoryPrefs
-
 class CategoryAdapter(
     private val context: Context,
     private val categories: List<Category>,
@@ -38,8 +37,6 @@ class CategoryAdapter(
         val category = categories[position]
 
         holder.textViewCategoryName.text = category.category
-
-        // Set the appropriate image based on the category name
         when (category.category) {
             "news" -> holder.imageViewCategory.setImageResource(R.drawable.news)
             "sport" -> holder.imageViewCategory.setImageResource(R.drawable.sports)
@@ -60,16 +57,12 @@ class CategoryAdapter(
             else -> holder.imageViewCategory.setImageResource(R.drawable.ic_launcher_foreground)
         }
 
-        // Check if the category is selected
         val isSelected = newsCategoryPrefs.getCategoryList()?.contains(category) == true
-
         // Set selected state of the CardView
         if (isSelected) {
             holder.cardViewCategory.setCardBackgroundColor(ContextCompat.getColor(context, R.color.my_app_primary))
-            // You can also apply a different foreground effect or customize as needed
         } else {
             holder.cardViewCategory.setCardBackgroundColor(ContextCompat.getColor(context, R.color.my_app_accent))
-            // Reset to the default background color when not selected
         }
 
         holder.cardViewCategory.setOnClickListener {

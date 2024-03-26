@@ -38,7 +38,6 @@ class TabContentViewModel(private val repository: Repository) : ViewModel() {
         })
     }
 
-
     fun loadSearchedArticles(que: String) {
         _isViewLoading.value = true
         repository.fetchSearchedArticles(que, object : OperationCallback<Article> {
