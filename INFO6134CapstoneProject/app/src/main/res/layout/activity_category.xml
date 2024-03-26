@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
         android:text="To Dashboard"
-        android:backgroundTint="@color/my_app_accent"
-        android:textColor="@color/black"/>
+        android:backgroundTint="@color/black"
+        android:textColor="@color/white"/>
 
 </RelativeLayout>
