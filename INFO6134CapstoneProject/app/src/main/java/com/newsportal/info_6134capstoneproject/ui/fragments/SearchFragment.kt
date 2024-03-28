@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.newsportal.info_6134capstoneproject.R
 import com.newsportal.info_6134capstoneproject.adapters.SearchHistoryAdapter
-import com.newsportal.info_6134capstoneproject.adapters.TabContentFragmentAdapter
 import com.newsportal.info_6134capstoneproject.di.Injection
 import com.newsportal.info_6134capstoneproject.ui.activities.SearchNewsActivity
 

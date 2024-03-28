@@ -21,7 +21,7 @@ class TabContentViewModel(private val repository: Repository) : ViewModel() {
 
     fun loadArticles(title: String) {
         _isViewLoading.value = true
-        repository.fetchArticles(title, object : OperationCallback<Article> {
+        repository.fetchArticles(title,  object : OperationCallback<Article> {
             override fun onError(error: String?) {
                 _isViewLoading.value = false
                 _onMessageError.value = error

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1040471348611",
+    "project_id": "capstoneproject-d1ce0",
+    "storage_bucket": "capstoneproject-d1ce0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1040471348611:android:ac57f9a2d9679cb37a52b6",
+        "android_client_info": {
+          "package_name": "com.newsportal.info_6134capstoneproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVBfjpzLS7_puKcyYSWYGC6LqEWBxk9p8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

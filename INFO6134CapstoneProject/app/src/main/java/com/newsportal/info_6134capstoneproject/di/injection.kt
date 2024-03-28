@@ -1,10 +1,12 @@
 package com.newsportal.info_6134capstoneproject.di
 
+import android.content.Context
 import com.newsportal.info_6134capstoneproject.data.ApiClient
 import com.newsportal.info_6134capstoneproject.data.DataSource
 import com.newsportal.info_6134capstoneproject.data.RemoteDataSource
 import com.newsportal.info_6134capstoneproject.repository.Repository
 import com.newsportal.info_6134capstoneproject.ui.fragments.tabcontentfragment.ViewModelFactory
+
 object Injection {
 
     private var ds: DataSource? = null
@@ -40,3 +42,4 @@ object Injection {
         viewModelFactory = null
     }
 }
+
