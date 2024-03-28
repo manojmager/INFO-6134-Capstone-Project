@@ -2,12 +2,17 @@ package com.newsportal.info_6134capstoneproject
 
 import HomeFragment
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -18,6 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.newsportal.info_6134capstoneproject.data.FetchWeather
 import com.newsportal.info_6134capstoneproject.data.WeatherFetchListener
 import com.newsportal.info_6134capstoneproject.databinding.ActivityMainBinding
+import com.newsportal.info_6134capstoneproject.ui.activities.NotificationActivity
 import com.newsportal.info_6134capstoneproject.ui.fragments.bookmarkfragment.BookmarkFragment
 import com.newsportal.info_6134capstoneproject.ui.fragments.SearchFragment
 import com.newsportal.info_6134capstoneproject.ui.fragments.SettingsFragment
@@ -41,7 +47,32 @@ class MainActivity : AppCompatActivity(), WeatherFetchListener {
 
         initVars()
         initBottomNavigation()
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.action_bar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.d("MenuItemClick", "Item ID: ${item.itemId}")
+        return when (item.itemId) {
+            R.id.notification -> {
+                Log.d("MenuItemClick", "Notification clicked")
+                val intent = Intent(this, NotificationActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            else -> {
+                Log.d("MenuItemClick", "Unknown item clicked")
+                super.onOptionsItemSelected(item)
+            }
+        }
+    }
+
     private fun initVars() {
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
     }

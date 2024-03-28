@@ -5,6 +5,7 @@ import com.newsportal.info_6134capstoneproject.response.LatestHeadlinesResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 class RemoteDataSource(private val apiClient: ApiClient) : DataSource {
     private var call: Call<LatestHeadlinesResponse>? = null
     private val service = apiClient.build()
