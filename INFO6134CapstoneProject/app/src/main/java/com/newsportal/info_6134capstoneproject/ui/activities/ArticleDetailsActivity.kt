@@ -3,6 +3,7 @@ package com.newsportal.info_6134capstoneproject.ui.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -22,10 +23,20 @@ class ArticleDetailsActivity : AppCompatActivity() {
         val media = intent.getStringExtra("media")
         val title = intent.getStringExtra("title")
         val summery = intent.getStringExtra("summary")
+        Log.d("TAG", "onCreate: $summery")
 
-        Glide.with(imageView.context).load(media).into(imageView)
+        textViewTitle.textSize = 24f
+        Glide.with(imageView.context)
+            .load(media)
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_error)
+            .into(imageView)
         textViewTitle.text = title
-        textViewSummery.text = summery
+
+        val formattedSummary = summery?.replace(". ", ".\n\n")
+        textViewSummery.textSize = 18f
+        textViewSummery.setLineSpacing(10f, 1f)
+        textViewSummery.text = formattedSummary
 
         btnViewSite.setOnClickListener {
             val intent = Intent(this, WebViewActivity::class.java).apply {

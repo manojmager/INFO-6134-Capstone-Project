@@ -1,32 +1,31 @@
 package com.newsportal.info_6134capstoneproject.ui.fragments.bookmarkfragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.newsportal.info_6134capstoneproject.R
 import com.newsportal.info_6134capstoneproject.adapters.BookmarkAdapter
-import com.newsportal.info_6134capstoneproject.adapters.TabContentFragmentAdapter
+import com.newsportal.info_6134capstoneproject.databinding.FragmentBookmarkBinding
 import com.newsportal.info_6134capstoneproject.db.BookmarkViewModel
-import com.newsportal.info_6134capstoneproject.ui.fragments.tabcontentfragment.ViewModelFactory
 
 class BookmarkFragment : Fragment() {
 
     private lateinit var bookmarkViewModel: BookmarkViewModel
+    private var _binding: FragmentBookmarkBinding? = null
+    private val binding get() = _binding!!
 
-    private lateinit var adapter: BookmarkAdapter
-    private lateinit var recyclerView: RecyclerView
+    private val adapter by lazy { BookmarkAdapter(bookmarkViewModel) }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_bookmark, container, false)
+    ): View {
+        _binding = FragmentBookmarkBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,15 +34,19 @@ class BookmarkFragment : Fragment() {
     }
 
     private fun setupUI() {
-        recyclerView = view?.findViewById(R.id.rvContentFragment) as RecyclerView
+        val context = context ?: return
+        val recyclerView = binding.rvContentFragment
         bookmarkViewModel = ViewModelProvider(this).get(BookmarkViewModel::class.java)
-        adapter = BookmarkAdapter(bookmarkViewModel)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
-        bookmarkViewModel.readAllData.observe(viewLifecycleOwner, Observer{ dbArticle ->
+        bookmarkViewModel.readAllData.observe(viewLifecycleOwner, Observer { dbArticle ->
             adapter.update(dbArticle)
         })
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
