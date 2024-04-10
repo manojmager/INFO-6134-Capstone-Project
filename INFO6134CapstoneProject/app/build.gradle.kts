@@ -75,4 +75,11 @@ dependencies {
     kapt ("androidx.room:room-compiler:2.6.1")
     implementation ("androidx.room:room-ktx:2.6.1")
     androidTestImplementation ("androidx.room:room-testing:2.6.1")
+
+    //glide
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+
+    //swipe refresh layout
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }
