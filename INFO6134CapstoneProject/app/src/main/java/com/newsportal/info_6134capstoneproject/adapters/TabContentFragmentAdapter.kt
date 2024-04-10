@@ -1,7 +1,7 @@
 package com.newsportal.info_6134capstoneproject.adapters
 
+import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,6 +78,17 @@ class TabContentFragmentAdapter (
         }
 
         init {
+            val isDarkMode = itemView.context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+                .getBoolean("is_dark_mode", false)
+
+            if(isDarkMode){
+                shareContentBtn.setImageResource(R.drawable.share_icon_dark)
+                bookmarkBtn.setImageResource(R.drawable.inactive_bookmark_icon_dark)
+            }else{
+                shareContentBtn.setImageResource(R.drawable.share_icon)
+                bookmarkBtn.setImageResource(R.drawable.inactive_bookmark_icon)
+            }
+
             val clickListener = View.OnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
@@ -109,12 +120,18 @@ class TabContentFragmentAdapter (
 
                     val dbArticle = DBArticle(_id = 0, title, author, published_date,link, media,excerpt, summary, topic)
                     bookmarkViewModel.addBookmark(dbArticle)
-                    bookmarkBtn.setImageResource(R.drawable.active_bookmark_icon)
+                    if (isDarkMode){
+                        bookmarkBtn.setImageResource(R.drawable.active_bookmark_icon_dark)
+                    }else{
+                        bookmarkBtn.setImageResource(R.drawable.active_bookmark_icon)
+                    }
+
                 }
             }
 
             shareContentBtn.setOnClickListener {
                 val position = adapterPosition
+
                 if (position != RecyclerView.NO_POSITION) {
                     val article = articles[position]
                     val shareMessage = "${article.excerpt}\nAuthor: ${article.author}\n${article.link}"

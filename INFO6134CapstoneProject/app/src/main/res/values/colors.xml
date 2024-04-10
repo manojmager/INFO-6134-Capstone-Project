@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Light mode colors -->
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="my_app_primary">#B80000</color>
-    <color name="my_app_primary_dark">#7D0A0A</color>
     <color name="my_app_secondary">#D24545</color>
     <color name="my_app_background">#f9fafb</color>
     <color name="my_app_accent">#E6BAA3</color>
+    <color name="text_color_light">#000000</color>
+    <color name="notification_alert_light">#B80000</color>
+
+    <!-- Dark mode colors -->
+
+    <color name="my_app_primary_night">#303F9F</color>
+    <color name="my_app_secondary_dark">#FF4081</color>
+    <color name="my_app_background_dark">#121212</color>
+    <color name="my_app_accent_dark">#FFA000</color>
+    <color name="my_app_error_dark">#FF5722</color>
+    <color name="text_color_dark">#ffffff</color>
+    <color name="notification_alert_dark">#ffffff</color>
 </resources>

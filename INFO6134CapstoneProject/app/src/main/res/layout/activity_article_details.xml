@@ -24,14 +24,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="View Site"
-            android:layout_marginTop="8dp"
-            android:layout_gravity="end" />
+            android:layout_margin="4dp"
+            android:layout_gravity="end"
+            android:textColor="@color/white"/>
+
 
         <TextView
             android:id="@+id/ad_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
+            style="@style/textViewStyle"/>
             android:textSize="24sp"
             android:layout_marginTop="16dp" />
 
@@ -39,7 +42,8 @@
             android:id="@+id/ad_summery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
+            android:layout_margin="4dp"
+            style="@style/textViewStyle"/>
 
     </LinearLayout>
 

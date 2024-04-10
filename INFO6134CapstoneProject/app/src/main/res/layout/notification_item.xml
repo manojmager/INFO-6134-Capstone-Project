@@ -35,7 +35,7 @@
                         android:layout_marginRight="10dp"
                         android:layout_height="40dp"
                         android:text="Lorem Ipsum lorem ipsum lorem ipsum lorem ipsum"
-                        android:textColor="@color/black"
+                        style="@style/textViewStyle"
                         android:textStyle="bold"
                         android:layout_marginBottom="3dp"/>
                     <TextView
@@ -43,6 +43,7 @@
                         android:layout_width="match_parent"
                         android:layout_marginRight="10dp"
                         android:layout_height="60dp"
+                        style="@style/textViewStyle"
                         android:text="Summry"/>
                 </LinearLayout>
 

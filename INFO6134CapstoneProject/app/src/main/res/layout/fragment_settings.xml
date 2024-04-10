@@ -1,24 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.newsportal.info_6134capstoneproject.MainActivity">
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/firstFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Settings"
-        android:textColor="#43a047"
-        android:textSize="40sp"
-        android:textStyle="italic|bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        style="@style/textViewStyle"
+        android:textSize="23dp"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:layout_margin="20dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="APP PREFERENCE"
+        android:textSize="13dp"
+        style="@style/textViewStyle"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/notificationSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/textViewStyle"
+            android:text="Android Notification Settings"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:padding="16dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@android:color/darker_gray"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CONTENT"
+            android:textSize="13sp"
+            style="@style/textViewStyle"
+            android:padding="16dp"
+            android:layout_marginBottom="10dp"/>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/preferredCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/textViewStyle"
+        android:text="Preferred Category"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:paddingBottom="13dp"
+        android:textSize="15sp"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/darker_gray"/>
+
+    <!-- Dark Mode Switch -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PREFERENCE"
+        style="@style/textViewStyle"
+        android:textSize="13sp"
+        android:padding="16dp"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:id="@+id/lightModeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="light mode"
+            style="@style/textViewStyle"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
+
+        <RadioButton
+            android:id="@+id/lightMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableRight="@drawable/check_light"
+            android:layout_marginEnd="8dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/darkModeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="13dp"
+        android:paddingRight="13dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="dark mode"
+            style="@style/textViewStyle"
+            android:textSize="15sp"
+            android:textStyle="bold"/>
+
+        <RadioButton
+            android:id="@+id/darkMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableRight="@drawable/check_dark"
+            android:layout_marginEnd="8dp"/>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/darker_gray"/>
+</LinearLayout>
