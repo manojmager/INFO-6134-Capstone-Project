@@ -11,6 +11,7 @@ import com.newsportal.info_6134capstoneproject.adapters.CategoryAdapter
 import com.newsportal.info_6134capstoneproject.model.Category
 import com.newsportal.info_6134capstoneproject.pref.NewsCategoryPrefs
 import com.newsportal.info_6134capstoneproject.MainActivity
+
 class CategoryActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
@@ -39,11 +40,7 @@ class CategoryActivity : AppCompatActivity() {
             Category(id = 8, category = "entertainment"),
             Category(id = 9, category = "beauty"),
             Category(id = 10, category = "travel"),
-            Category(id = 11, category = "music"),
-//            Category(id = 12, category = "food"),
-//            Category(id = 13, category = "science"),
-//            Category(id = 14, category = "gaming"),
-//            Category(id = 15, category = "energy"),
+            Category(id = 11, category = "music")
         )
 
         // Set up RecyclerView adapter

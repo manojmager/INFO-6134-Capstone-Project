@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.newsportal.info_6134capstoneproject.R
 import com.newsportal.info_6134capstoneproject.adapters.TabContentFragmentAdapter
 import com.newsportal.info_6134capstoneproject.db.BookmarkViewModel
@@ -25,18 +26,19 @@ class SearchNewsActivity : AppCompatActivity() {
 
     private lateinit var adapter: TabContentFragmentAdapter
     private lateinit var recyclerView: RecyclerView
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var layoutError: View
     private lateinit var textViewError: TextView
     private lateinit var layoutEmpty: View
     private lateinit var progressBar: View
 
-    private lateinit var que: String
+    private lateinit var query: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_news)
 
-        que = intent.getStringExtra("QUERY") ?: "news"
+        query = intent.getStringExtra("QUERY") ?: "news"
 
         setupToolbar()
         setupViewModel()
@@ -50,7 +52,6 @@ class SearchNewsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
-    // Override onOptionsItemSelected to handle toolbar navigation click if needed
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -63,6 +64,7 @@ class SearchNewsActivity : AppCompatActivity() {
 
     private fun setupUI() {
         recyclerView = findViewById(R.id.rvContentFragment)
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
         layoutError = findViewById(R.id.layoutError)
         layoutEmpty = findViewById(R.id.layoutEmpty)
         progressBar = findViewById(R.id.progressBar)
@@ -72,6 +74,10 @@ class SearchNewsActivity : AppCompatActivity() {
         adapter = TabContentFragmentAdapter(emptyList(), bookmarkViewModel)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
+
+        swipeRefreshLayout.setOnRefreshListener {
+            viewModel.loadSearchedArticles(query)
+        }
     }
 
     private fun setupViewModel() {
@@ -87,6 +93,7 @@ class SearchNewsActivity : AppCompatActivity() {
         layoutError.visibility = View.GONE
         layoutEmpty.visibility = View.GONE
         adapter.update(articles)
+        swipeRefreshLayout.isRefreshing = false
     }
 
     private val isViewLoadingObserver = Observer<Boolean> { isLoading ->
@@ -101,6 +108,7 @@ class SearchNewsActivity : AppCompatActivity() {
             layoutError.visibility = View.VISIBLE
             layoutEmpty.visibility = View.GONE
             textViewError.text = "Error $it"
+            swipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -108,11 +116,12 @@ class SearchNewsActivity : AppCompatActivity() {
         Log.v("SearchNewsActivity", "emptyListObserver $isEmpty")
         layoutEmpty.visibility = if (isEmpty) View.VISIBLE else View.GONE
         layoutError.visibility = View.GONE
+        swipeRefreshLayout.isRefreshing = false
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.loadSearchedArticles(que)
+        viewModel.loadSearchedArticles(query)
     }
 
     override fun onDestroy() {
