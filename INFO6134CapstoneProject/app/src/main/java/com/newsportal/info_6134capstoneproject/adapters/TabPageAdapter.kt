@@ -9,7 +9,6 @@ class TabPageAdapter(fm: FragmentManager, private val categories: List<Category>
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {
-        // Use newInstance with category name as an argument for each fragment
         return TabContentFragment.newInstance(categories[position].category)
     }
 

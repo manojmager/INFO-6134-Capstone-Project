@@ -14,6 +14,10 @@ import com.newsportal.info_6134capstoneproject.db.BookmarkViewModel
 import com.newsportal.info_6134capstoneproject.model.Article
 import com.newsportal.info_6134capstoneproject.model.DBArticle
 import com.newsportal.info_6134capstoneproject.ui.activities.ArticleDetailsActivity
+import java.lang.Math.abs
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class TabContentFragmentAdapter (
     private var articles: List<Article>,
@@ -40,18 +44,37 @@ class TabContentFragmentAdapter (
     }
 
     inner class MViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val imageView: ImageView = view.findViewById(R.id.cardImage)
         private val textViewCardAuthor: TextView = view.findViewById(R.id.cardAuthor)
         private val textViewCardHeadline: TextView = view.findViewById(R.id.cardHeadline)
-        private val imageView: ImageView = view.findViewById(R.id.cardImage)
+        private val textViewCardPass: TextView = view.findViewById(R.id.cardPass)
 
         private val bookmarkBtn: ImageView = view.findViewById(R.id.cardBookmark)
         private val shareContentBtn: ImageView = view.findViewById(R.id.cardShare)
 
 
         fun bind(article: Article) {
+            Glide.with(imageView.context)
+                .load(article.media)
+                .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_error)
+                .into(imageView)
             textViewCardAuthor.text = article.author
             textViewCardHeadline.text = article.excerpt
-            Glide.with(imageView.context).load(article.media).into(imageView)
+
+            val publishedDate = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(article.published_date)
+            val currentDate = Date()
+
+            val diff = abs(currentDate.time - publishedDate.time)
+            val days = diff / (1000 * 60 * 60 * 24)
+            val hours = (diff / (1000 * 60 * 60)) % 24
+
+            val displayString = if (days > 0) {
+                "${days}d ago"
+            } else {
+                "${hours}h ago"
+            }
+            textViewCardPass.text = displayString
         }
 
         init {

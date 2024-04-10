@@ -26,10 +26,7 @@
 
     <activity
         android:name=".ui.activities.NotificationActivity"/>
-
-    <activity
-        android:name=".test.TestActivity"
-        android:exported="false" />
+  
     <activity
         android:name=".ui.activities.ArticleDetailsActivity"
         android:exported="false"
@@ -40,14 +37,16 @@
     <activity
         android:name=".ui.activities.CategoryActivity"
         android:exported="false"
-        android:configChanges="uiMode" />
+        android:configChanges="uiMode"      
+        android:screenOrientation="portrait"/>
     <activity
         android:name=".MainActivity"
         android:exported="true"
         android:configChanges="uiMode"/>
     <activity
         android:name=".ui.activities.SplashScreenActivity"
-        android:exported="true">
+        android:exported="true"
+        android:screenOrientation="portrait">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 

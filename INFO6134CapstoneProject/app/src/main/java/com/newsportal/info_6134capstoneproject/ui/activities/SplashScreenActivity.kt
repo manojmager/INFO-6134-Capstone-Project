@@ -5,10 +5,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
+import com.newsportal.info_6134capstoneproject.MainActivity
 import com.newsportal.info_6134capstoneproject.R
 
 class SplashScreenActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_screen)

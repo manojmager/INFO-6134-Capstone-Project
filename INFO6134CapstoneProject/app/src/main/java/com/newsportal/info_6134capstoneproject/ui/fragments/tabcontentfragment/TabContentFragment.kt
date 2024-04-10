@@ -20,8 +20,6 @@ import com.newsportal.info_6134capstoneproject.db.BookmarkViewModel
 import com.newsportal.info_6134capstoneproject.di.Injection
 import com.newsportal.info_6134capstoneproject.model.Article
 
-// TODO: implement Threads and Coroutines
-// TODO: check redundent data
 class TabContentFragment : Fragment() {
 
     private val viewModel by viewModels<TabContentViewModel> {
@@ -93,7 +91,8 @@ class TabContentFragment : Fragment() {
             Log.v(TAG, "onMessageError $error")
             layoutError.visibility = View.VISIBLE
             layoutEmpty.visibility = View.GONE
-            textViewError.text = "Error $it"
+//            textViewError.text = "Error $it"
+            textViewError.text = "You are currently offline."
         }
     }
 
