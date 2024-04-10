@@ -31,11 +31,9 @@ class NotificationActivity : AppCompatActivity() {
         val savedArticles = NotificationAdapter.getSavedArticlesFromSharedPreferences(this)
         val sortedArticles = savedArticles.sortedByDescending { it.published_date }
 
-        // Create and set adapter with empty list initially
         notificationAdapter = NotificationAdapter(sortedArticles)
         notificationRecyclerView.adapter = notificationAdapter
 
-        // Set click listener for clearSaved TextView
         clearSaved.setOnClickListener {
             showConfirmationDialog()
         }
@@ -44,8 +42,16 @@ class NotificationActivity : AppCompatActivity() {
     }
 
     private fun showConfirmationDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Clear Saved Data")
+        val sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val isDarkMode = sharedPreferences.getBoolean("is_dark_mode", false)
+
+        val builder = if (isDarkMode) {
+            AlertDialog.Builder(this, R.style.DarkTheme_AlertDialog)
+        } else {
+            AlertDialog.Builder(this, R.style.LightTheme_AlertDialog)
+        }
+
+        builder.setTitle("Clear Saved Data")
             .setMessage("Are you sure you want to clear all saved data?")
             .setPositiveButton("Yes") { dialog, _ ->
                 clearSharedPreferences()

@@ -1,7 +1,28 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme for night mode -->
     <style name="Base.Theme.INFO6134CapstoneProject" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/my_app_primary</item>
+        <item name="colorSecondary">@color/my_app_secondary_dark</item>
+        <item name="android:colorAccent">@color/my_app_accent_dark</item>
+        <item name="android:colorBackground">@color/my_app_background_dark</item>
+        <item name="android:colorError">@color/my_app_accent_dark</item>
+    </style>
+    <style name="Theme.INFO6134CapstoneProject" parent="Base.Theme.INFO6134CapstoneProject" />
+
+    <!-- Style for text views -->
+    <style name="textViewStyle">
+        <item name="android:textColor">@color/text_color_dark</item>
+    </style>
+
+    <!-- Style for content background -->
+    <style name="contentBackground">
+        <item name="android:background">@color/my_app_background_dark</item>
+    </style>
+
+    <style name="DarkTheme_ButtonBarButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/notification_alert_dark</item>
+    </style>
+    <style name="DarkTheme_AlertDialog" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarButtonStyle">@style/DarkTheme_ButtonBarButtonStyle</item>
     </style>
 </resources>

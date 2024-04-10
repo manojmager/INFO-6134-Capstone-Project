@@ -2,8 +2,10 @@ package com.newsportal.info_6134capstoneproject
 
 import HomeFragment
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -48,12 +50,25 @@ class MainActivity : AppCompatActivity(), WeatherFetchListener {
         initVars()
         initBottomNavigation()
 
+        val sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val isDarkMode = sharedPreferences.getBoolean("is_dark_mode", false)
+        setIcons(isDarkMode)
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val isDarkMode = sharedPreferences.getBoolean("is_dark_mode", false)
+
         menuInflater.inflate(R.menu.action_bar_menu, menu)
+        val notificationItem = menu.findItem(R.id.notification)
+        if (isDarkMode) {
+            notificationItem.setIcon(R.drawable.notification_icon_dark)
+        } else {
+            notificationItem.setIcon(R.drawable.notification_icon)
+        }
         return true
     }
 
@@ -73,8 +88,29 @@ class MainActivity : AppCompatActivity(), WeatherFetchListener {
         }
     }
 
+    private fun setIcons(isDarkMode: Boolean) {
+        val homeIcon = if (isDarkMode) R.drawable.home_icon_dark else R.drawable.home_icon
+        val bookmarkIcon =
+            if (isDarkMode) R.drawable.bookmark_icon_dark else R.drawable.bookmark_icon
+        val searchIcon = if (isDarkMode) R.drawable.search_icon_dark else R.drawable.search_icon
+        val settingsIcon =
+            if (isDarkMode) R.drawable.settings_icon_dark else R.drawable.settings_icon
+
+        binding.bottomNavigationView.menu.findItem(R.id.home).setIcon(homeIcon)
+        binding.bottomNavigationView.menu.findItem(R.id.bookmark).setIcon(bookmarkIcon)
+        binding.bottomNavigationView.menu.findItem(R.id.search).setIcon(searchIcon)
+        binding.bottomNavigationView.menu.findItem(R.id.settings).setIcon(settingsIcon)
+    }
+
+
+
     private fun initVars() {
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        currentLocationTextView = findViewById(R.id.currentLocation)
+        degreeTextView = findViewById(R.id.degree)
+        weatherConditionTextView = findViewById(R.id.currentWeather)
+        weatherConditionImage = findViewById(R.id.weatherConditionImg)
+        initializeWeather()
     }
     private fun initBottomNavigation() {
         val homeFragment = HomeFragment()
@@ -93,13 +129,6 @@ class MainActivity : AppCompatActivity(), WeatherFetchListener {
             }
             true
         }
-
-        currentLocationTextView = findViewById(R.id.currentLocation)
-        degreeTextView = findViewById(R.id.degree)
-        weatherConditionTextView = findViewById(R.id.currentWeather)
-        weatherConditionImage = findViewById(R.id.weatherConditionImg)
-
-        initializeWeather()
     }
     private fun setCurrentFragment(fragment: Fragment)=
         supportFragmentManager.beginTransaction().apply {

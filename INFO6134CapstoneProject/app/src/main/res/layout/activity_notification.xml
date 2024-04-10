@@ -35,7 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="clearAll"
-                android:layout_gravity="end" />
+                android:layout_gravity="end"
+                style="@style/textViewStyle"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/notificationRecyclerView"

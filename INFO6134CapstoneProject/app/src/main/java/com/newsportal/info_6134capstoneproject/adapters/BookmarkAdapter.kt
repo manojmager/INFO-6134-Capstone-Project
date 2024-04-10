@@ -1,5 +1,6 @@
 package com.newsportal.info_6134capstoneproject.adapters
 
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.newsportal.info_6134capstoneproject.R
 import com.newsportal.info_6134capstoneproject.db.BookmarkViewModel
-import com.newsportal.info_6134capstoneproject.model.Article
 import com.newsportal.info_6134capstoneproject.model.DBArticle
 import com.newsportal.info_6134capstoneproject.ui.activities.ArticleDetailsActivity
 
@@ -53,6 +53,17 @@ class BookmarkAdapter(private val bookmarkViewModel: BookmarkViewModel) : Recycl
         }
 
         init {
+            val isDarkMode = itemView.context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+                .getBoolean("is_dark_mode", false)
+
+            if(isDarkMode){
+                shareContentBtn.setImageResource(R.drawable.share_icon_dark)
+                bookmarkBtn.setImageResource(R.drawable.inactive_bookmark_icon_dark)
+            }else{
+                shareContentBtn.setImageResource(R.drawable.share_icon)
+                bookmarkBtn.setImageResource(R.drawable.inactive_bookmark_icon)
+            }
+
             val clickListener = View.OnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
@@ -70,7 +81,12 @@ class BookmarkAdapter(private val bookmarkViewModel: BookmarkViewModel) : Recycl
             textViewCardHeadline.setOnClickListener(clickListener)
             imageView.setOnClickListener(clickListener)
 
-            bookmarkBtn.setImageResource(R.drawable.active_bookmark_icon)
+            if (isDarkMode){
+                bookmarkBtn.setImageResource(R.drawable.active_bookmark_icon_dark)
+            }else{
+                bookmarkBtn.setImageResource(R.drawable.active_bookmark_icon)
+            }
+
             bookmarkBtn.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
@@ -93,7 +109,6 @@ class BookmarkAdapter(private val bookmarkViewModel: BookmarkViewModel) : Recycl
                     itemView.context.startActivity(shareIntent)
                 }
             }
-
         }
     }
 
