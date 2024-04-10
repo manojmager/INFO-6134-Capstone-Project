@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.newsportal.info_6134capstoneproject.R
 import com.newsportal.info_6134capstoneproject.db.BookmarkViewModel
-import com.newsportal.info_6134capstoneproject.model.Article
 import com.newsportal.info_6134capstoneproject.model.DBArticle
 import com.newsportal.info_6134capstoneproject.ui.activities.ArticleDetailsActivity
 
