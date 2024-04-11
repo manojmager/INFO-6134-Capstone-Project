@@ -76,7 +76,7 @@ class SearchNewsActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         swipeRefreshLayout.setOnRefreshListener {
-            viewModel.loadSearchedArticles(query)
+            viewModel.loadSearchedArticles("$query + s")
         }
     }
 
