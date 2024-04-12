@@ -36,11 +36,16 @@ class CategoryActivity : AppCompatActivity() {
             Category(id = 4, category = "world"),
             Category(id = 5, category = "finance"),
             Category(id = 6, category = "politics"),
-            Category(id = 7, category = "economics"),
-            Category(id = 8, category = "entertainment"),
-            Category(id = 9, category = "beauty"),
-            Category(id = 10, category = "travel"),
-            Category(id = 11, category = "music")
+            Category(id = 7, category = "business"),
+            Category(id = 8, category = "economics"),
+            Category(id = 9, category = "entertainment"),
+            Category(id = 10, category = "beauty"),
+            Category(id = 11, category = "travel"),
+            Category(id = 12, category = "music"),
+            Category(id = 13, category = "food"),
+            Category(id = 14, category = "science"),
+            Category(id = 15, category = "gaming"),
+            Category(id = 16, category = "energy"),
         )
 
         // Set up RecyclerView adapter

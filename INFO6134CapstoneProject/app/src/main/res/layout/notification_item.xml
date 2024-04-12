@@ -43,6 +43,7 @@
                         android:layout_width="match_parent"
                         android:layout_marginRight="10dp"
                         android:layout_height="60dp"
+                        android:maxLines="2"
                         style="@style/textViewStyle"
                         android:text="Summry"/>
                 </LinearLayout>
