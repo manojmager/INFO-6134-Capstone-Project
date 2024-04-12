@@ -4,20 +4,28 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.newsportal.info_6134capstoneproject.R
+
 class ArticleDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_article_details)
 
+        val toolbar: Toolbar = findViewById(R.id.tbArticleDetails)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         val imageView: ImageView = findViewById(R.id.ad_image_view)
         val btnViewSite: Button = findViewById(R.id.ad_btn_view)
         val textViewTitle: TextView = findViewById(R.id.ad_title)
-        val textViewSummery: TextView = findViewById(R.id.ad_summery)
+        val textViewSummery: TextView = findViewById(R.id.ad_summary)
 
         val url = intent.getStringExtra("url")
         val media = intent.getStringExtra("media")
@@ -43,6 +51,16 @@ class ArticleDetailsActivity : AppCompatActivity() {
                 putExtra("url", url)
             }
             startActivity(intent)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

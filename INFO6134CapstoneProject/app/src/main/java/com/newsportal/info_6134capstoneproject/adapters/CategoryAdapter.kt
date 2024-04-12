@@ -66,11 +66,16 @@ class CategoryAdapter(
             "world" -> R.drawable.world
             "finance" -> R.drawable.finance
             "politics" -> R.drawable.politics
+            "business" -> R.drawable.business
             "economics" -> R.drawable.economics
-            "entertainment" -> R.drawable.tech
+            "entertainment" -> R.drawable.entertainment
             "beauty" -> R.drawable.beauty
             "travel" -> R.drawable.travel
             "music" -> R.drawable.music
+            "food" -> R.drawable.food
+            "science" -> R.drawable.science
+            "gaming" -> R.drawable.gaming
+            "energy" -> R.drawable.energy
             else -> R.drawable.ic_launcher_foreground
         }
     }
